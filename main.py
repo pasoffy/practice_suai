@@ -43,6 +43,22 @@ def insert_sort(words):
                 break
 
 
+def make_analysis(words):
+    data = {}
+    for word in words:
+        data[len(word)] = data.get(len(word), 0) + 1
+    return data
+
+
+def make_analysis_list(dictionary):
+    array = []
+    for key, value in dictionary.items():
+        s = ''
+        s = 'Количество слов, длина которых равна ' + str(key) + ' символов: ' + str(value)
+        array.append(s)
+    return array
+
+
 name_of_file = input("Введите название файла или путь к нему: ")
 
 if check_file(name_of_file):
@@ -54,7 +70,17 @@ if check_file(name_of_file):
             update_words = updating_words(original_words)
             update_words = list(filter(lambda word: word.isalpha(), update_words))
             insert_sort(update_words)
-            print(*update_words, sep='\n')
+            # print(*update_words, sep='\n')
         else:
             print("Этот файл пуст...")
 
+with open('result.txt', 'w', encoding='utf-8') as output_file:
+    for word in update_words:
+        print(word, file=output_file)
+
+analysis = make_analysis(update_words)
+analysis_list = make_analysis_list(analysis)
+
+with open('analysis.txt', 'w', encoding='utf-8') as analysis_file:
+    for value in analysis_list:
+        print(value, file=analysis_file)
