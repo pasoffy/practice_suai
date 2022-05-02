@@ -34,6 +34,15 @@ def updating_words(words):
     return words
 
 
+def insert_sort(words):
+    for i in range(1, len(words)):
+        for j in range(i, 0, -1):
+            if len(words[j]) > len(words[j - 1]):
+                words[j - 1], words[j] = words[j], words[j - 1]
+            else:
+                break
+
+
 name_of_file = input("Введите название файла или путь к нему: ")
 
 if check_file(name_of_file):
@@ -43,6 +52,9 @@ if check_file(name_of_file):
             original_words = []
             word_division(input_file, original_words)
             update_words = updating_words(original_words)
+            update_words = list(filter(lambda word: word.isalpha(), update_words))
+            insert_sort(update_words)
+            print(*update_words, sep='\n')
         else:
-            print("its not ok")
+            print("Этот файл пуст...")
 
