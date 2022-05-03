@@ -33,11 +33,10 @@ def word_division(file, words):
 def updating_words(words):
     for i in range(len(words)):
         word = words.pop(i)
-        punctuations = ['.', ',', '!', '?', '-', '%', ';', ':', '/', '"']
         new_word = ''
         for char in word:
-            if char in punctuations or char in string.digits:
-                continue
+            if char in string.punctuation or char in string.digits:
+                continue                   # удаляем знаки препинания и цифры
             else:
                 new_word += char
         words.insert(i, new_word)
@@ -76,7 +75,7 @@ def make_analysis_list(dictionary):                            # записыв�
 name_of_file = input("Введите название файла или путь к нему: ")
 start_time = time.time()
 if check_file(name_of_file):
-    with open(name_of_file, 'r', encoding='utf-8') as input_file:
+    with open(name_of_file, 'r') as input_file:
 
         if is_it_empty(input_file):
             original_words = []
