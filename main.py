@@ -1,5 +1,7 @@
 import os
 import string
+import time
+
 
 def check_file(name):
     try:
@@ -72,7 +74,7 @@ def make_analysis_list(dictionary):                            # записыв�
 
 
 name_of_file = input("Введите название файла или путь к нему: ")
-
+start_time = time.time()
 if check_file(name_of_file):
     with open(name_of_file, 'r', encoding='utf-8') as input_file:
 
@@ -99,6 +101,10 @@ if check_file(name_of_file):
                 analysis_file.seek(0)
                 if analysis_file.readlines() == []:
                     print("В исходном файле не было найдено слов...", file=analysis_file)
+            if analysis_list == []:
+                print("В исходном файле не было найдено слов...")
+            else:
+                print(*analysis_list, sep='\n')
         else:
             print("Этот файл пуст...")
-
+print("--- %s seconds ---" % (time.time() - start_time))
