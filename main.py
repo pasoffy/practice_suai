@@ -74,7 +74,6 @@ def make_analysis_list(dictionary):                            # записыв�
 
 name_of_file = input("Введите название файла или путь к нему: ")
 
-start_time = time.time()
 if check_file(name_of_file):
     with open(name_of_file, 'r') as input_file:
 
@@ -88,8 +87,9 @@ if check_file(name_of_file):
 
             original_words_copy = original_words.copy()
             update_words = updating_words(original_words)
+            start_time = time.time()
             insert_sort(update_words)
-
+            print("%s секунд" % (time.time() - start_time))
             with open('result.txt', 'w+', encoding='utf-8') as output_file:
                 for word in update_words:
                     print(word, file=output_file)  # записываем в файл отсортированные слова
@@ -112,11 +112,11 @@ if check_file(name_of_file):
                           file=analysis_file)
                     print("Введенный текст:", *original_words_copy, file=analysis_file)
                     print("Всего слов:", len(original_words_copy), file=analysis_file)
-                    print("--- %s seconds ---" % (time.time() - start_time), file=analysis_file)
+                    print("%s секунд" % (time.time() - start_time), file=analysis_file)
             if analysis_list == []:
                 print("В исходном файле не было найдено слов...")
             else:
                 print(*analysis_list, sep='\n')
         else:
             print("Этот файл пуст...")
-print("%s секунд" % (time.time() - start_time))
+
